@@ -53,7 +53,7 @@ object Common {
       "-source", "1.6", "-target", "1.6", "-Xlint:all", "-Werror",
       "-Xlint:-options", "-Xlint:-path", "-Xlint:-processing"
     ),
-  
+
     scalacOptions in (Compile, doc) ++= Seq(
       "-no-link-warnings" // Suppress problems with Scaladoc @throws links
     ),
@@ -137,7 +137,7 @@ object Common {
       if (v._1.exists(_ == 1) && v._2.exists(_ < 9)) {
         Seq(
           // Default version when not cross-compiling
-          scalaVersion := "2.10.6",
+          scalaVersion := "2.12.1",
           crossScalaVersions := Seq("2.10.6", "2.11.8", "2.12.1")
         )
       // If JDK 9 or higher
