@@ -70,15 +70,17 @@ object Common {
       Try(System.getenv("SCALATEST_SPAN_SCALE_FACTOR").toDouble).getOrElse(1.0)
     },
 
-    concurrentRestrictions in Global := {
-      val limited = scala.util.Properties.envOrElse(
-        "SBT_TASK_LIMIT", "4"
-      ).toInt
+    // concurrentRestrictions in Global += {
+    //   import com.triplequote.hydra.HydraPlugin._
 
-      // Only limit parallel if told to do so
-      if (limited > 0) Seq(Tags.limitAll(limited))
-      else Nil
-    },
+    //   val limited = scala.util.Properties.envOrElse(
+    //     "SBT_TASK_LIMIT", "4"
+    //   ).toInt
+
+    //   // Only limit parallel if told to do so
+    //   if (limited > 0) Seq(Tags.limit(HydraTag, hydraDefaultCpus), Tags.limitAll(limited))
+    //   else Nil
+    // },
 
     testOptions in Test += Tests.Argument("-oDF"),
 
@@ -137,7 +139,7 @@ object Common {
       if (v._1.exists(_ == 1) && v._2.exists(_ < 9)) {
         Seq(
           // Default version when not cross-compiling
-          scalaVersion := "2.10.6",
+          scalaVersion := "2.12.1",
           crossScalaVersions := Seq("2.10.6", "2.11.8", "2.12.1")
         )
       // If JDK 9 or higher
