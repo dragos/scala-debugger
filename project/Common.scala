@@ -1,6 +1,8 @@
 import sbt._
 import Keys._
 
+import com.triplequote.sbt.hydra.HydraPlugin.autoImport._
+
 import scala.util.Try
 
 object Common {
@@ -70,17 +72,11 @@ object Common {
       Try(System.getenv("SCALATEST_SPAN_SCALE_FACTOR").toDouble).getOrElse(1.0)
     },
 
-    // concurrentRestrictions in Global += {
-    //   import com.triplequote.hydra.HydraPlugin._
+    hydraWorkers := scala.util.Properties.envOrElse("HYDRA_WORKERS", "4").toInt,
 
-    //   val limited = scala.util.Properties.envOrElse(
-    //     "SBT_TASK_LIMIT", "4"
-    //   ).toInt
-
-    //   // Only limit parallel if told to do so
-    //   if (limited > 0) Seq(Tags.limit(HydraTag, hydraDefaultCpus), Tags.limitAll(limited))
-    //   else Nil
-    // },
+    concurrentRestrictions in Global := {
+      Seq(Tags.limit(HydraTag, hydraWorkers.value), Tags.limitAll(hydraWorkers.value))
+    },
 
     testOptions in Test += Tests.Argument("-oDF"),
 
