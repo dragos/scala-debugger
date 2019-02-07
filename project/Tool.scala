@@ -17,11 +17,11 @@ object Tool {
     fork in IntegrationTest := true,
 
     // Contains the version of Ammonite used
-    ammoniteVersion := "COMMIT-cc9941d",
+    ammoniteVersion := "1.6.3-0-c77705a",
 
     libraryDependencies ++= Seq(
       "com.lihaoyi" % "ammonite" % ammoniteVersion.value cross CrossVersion.full,
-      "com.lihaoyi" % "ammonite-util" % ammoniteVersion.value cross CrossVersion.full,
+      "com.lihaoyi" %% "ammonite-util" % ammoniteVersion.value,
       "com.lihaoyi" %% "ammonite-terminal" % ammoniteVersion.value,
       "org.rogach" %% "scallop" % "2.0.5",
       "org.slf4j" % "slf4j-api" % "1.7.5",
